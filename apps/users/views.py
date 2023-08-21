@@ -1,7 +1,7 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 
 from apps.users.models import User 
-from apps.users.serializers import UserRegisterSerializer, UserSerializer
+from apps.users.serializers import UserRegisterSerializer, UserSerializer, UserDetailSerializer
 
 # Create your views here.
 class UserAPIView(ListAPIView):
@@ -10,7 +10,7 @@ class UserAPIView(ListAPIView):
 
 class UserRetrieveAPIView(RetrieveAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserDetailSerializer
 
 class UserCreateAPIView(CreateAPIView):
     queryset = User.objects.all()
