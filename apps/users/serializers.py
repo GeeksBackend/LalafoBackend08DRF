@@ -32,6 +32,12 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         if attrs['password'] != attrs['confirm_password']:
             raise serializers.ValidationError({'password':'Пароли отличаются'})
+        elif attrs['username'] == attrs['password']:
+            raise serializers.ValidationError({'password':'Введённый пароль слишком похож на имя пользователя.'})
+        elif len(attrs['password']) < 8:
+            raise serializers.ValidationError({'password':'Введённый пароль слишком короткий. Он должен содержать как минимум 8 символов.'})
+        elif 'qwertyui' in attrs['password'] and '12345678' in attrs['password'] and '87654321' in attrs['password']:
+            raise serializers.ValidationError({'password':'Введённый пароль слишком широко распространён. (123, qwertyui, 12345678)'})
         return attrs
     
     def create(self, validated_data):

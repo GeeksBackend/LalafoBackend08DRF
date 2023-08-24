@@ -1,25 +1,16 @@
-from rest_framework.generics import ListAPIView, RetrieveAPIView, UpdateAPIView, CreateAPIView, DestroyAPIView
+from rest_framework.viewsets import GenericViewSet
+from rest_framework import mixins
+from rest_framework.generics import ListAPIView
 
 from apps.posts.models import Post
 from apps.posts.serializers import PostSerializer
 
 # Create your views here.
-class PostAPIView(ListAPIView):
-    queryset = Post.objects.all() #SELECT * FROM posts_post; Django ORM
-    serializer_class = PostSerializer
-
-class PostRetrieveAPIView(RetrieveAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-
-class PostUpdateAPIView(UpdateAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-
-class PostCreateAPIView(CreateAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-
-class PostDestroyAPIView(DestroyAPIView):
+class PostAPIViewSet(GenericViewSet,
+                     mixins.ListModelMixin,
+                     mixins.RetrieveModelMixin,
+                     mixins.CreateModelMixin,
+                     mixins.UpdateModelMixin,
+                     mixins.DestroyModelMixin):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
