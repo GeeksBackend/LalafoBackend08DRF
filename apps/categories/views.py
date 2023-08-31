@@ -7,10 +7,7 @@ from apps.categories.serializers import CategorySerializer, CategoryDetailSerial
 # Create your views here.
 class CategoryAPIViewSet(GenericViewSet,
                          mixins.ListModelMixin,
-                         mixins.RetrieveModelMixin,
-                         mixins.CreateModelMixin,
-                         mixins.UpdateModelMixin,
-                         mixins.DestroyModelMixin):
+                         mixins.RetrieveModelMixin):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
