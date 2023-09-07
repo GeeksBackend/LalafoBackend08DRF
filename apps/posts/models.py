@@ -40,3 +40,49 @@ class Post(models.Model):
     class Meta:
         verbose_name = "Пост"
         verbose_name_plural = "Посты"
+
+class PostComment(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+        related_name="user_comments",
+        verbose_name="Пользователь"
+    )
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE,
+        related_name="post_comments",
+        verbose_name="Пост"
+    )
+    text = models.CharField(
+        max_length=300,
+        verbose_name="Текст"
+    )
+    created = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Дата создания"
+    )
+
+    def __str__(self):
+        return f"{self.user} {self.text}"
+    
+    class Meta:
+        verbose_name = "Комментарий"
+        verbose_name_plural = "Комментарии"
+
+class PostFavorite(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+        related_name="user_favorites",
+        verbose_name="Пользователь"
+    )
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE,
+        related_name="post_favorites",
+        verbose_name="Пост"
+    )
+
+    def __str__(self):
+        return f"{self.user} {self.post}"
+    
+    class Meta:
+        verbose_name = "Избранное"
+        verbose_name_plural = "Избранные"

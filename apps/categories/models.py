@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+# Create your models here. Django ORM - Python -> SQL
 class Category(models.Model):
     title = models.CharField(
         max_length=100,
